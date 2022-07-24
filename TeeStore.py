@@ -5,8 +5,8 @@ WIDTH=950
 HEIGHT=550
 
 class Button:
-    FontSize=45
-    FontName=None
+    FontSize=35
+    FontName='font'
     def __init__(self,Pos,Text,Callback=None,Img='button'):
         self.Actor=Actor(Img,Pos)
         self.Pos=Pos
@@ -17,6 +17,7 @@ class Button:
     
     def draw(self):
         self.Actor.draw()
+        screen.draw.text(self.Text,self.Pos,color='black',fontsize=Button.FontSize,fontname=self.FontName,anchor=(0.5,0.5))
         
         screen.draw.text(self.Text,self.Pos,color='black',fontsize=Button.FontSize)
     
