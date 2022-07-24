@@ -30,4 +30,4 @@ def draw():
     screen.fill((255,255,255))
     Test.draw()
 
-pgzrun.go(Title='TeeUniverse:Teestore')
+pgzrun.go(Title='TeeStore:Teestore')
