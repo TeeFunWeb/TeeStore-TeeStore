@@ -1,6 +1,5 @@
 from os import system
 import pgzrun
-import requests
 
 WIDTH=950
 HEIGHT=550
@@ -52,6 +51,16 @@ class LifeText: #文本的类
             self.Death=1 #表示时间结束
 
 
+class Line:
+    def __init__(self,Pos,Length=0,Color=(170,170,255)):
+        self.Pos=Pos
+        self.Length=Length
+        self.Color=Color
+        
+    def draw(self):
+        screen.draw.line(self.Pos,(self.Pos[0]+self.Length,self.Pos[1]),self.Color)
+
+
 class Panel:
     def __init__(self,No,Pos=(WIDTH//3+50,50),End=(WIDTH//3*2-100,HEIGHT-100),Color=(255,255,255)):
         self.No=No
@@ -65,6 +74,16 @@ class Panel:
         if self.No!=State:
             return
         screen.draw.filled_rect(self.Rect,self.Color)
+
+        for i in self.Base:
+            i.draw()
+        
+    def add(self,Item,Pos=[0,0]):
+        Pos=list(Pos)
+        Pos[0]=self.Pos[0]+Pos[0]
+        Pos[1]=self.Pos[1]+Pos[1]
+        O=Item(Pos=Pos)
+        self.Base.append(O)
     
 
 
@@ -81,6 +100,9 @@ Panels=[]
 for i in range(1,4):
     Panels.append(Panel(i))
 
+    if i==1:
+        Panels[i-1].add(Line,(75,75))
+
 
 State=0 #0:Nope 1:download 2:choice 3:start
 
@@ -91,7 +113,7 @@ def draw():
 
     for i in Buttons+Panels:
         i.draw()
-    
+
 
 def on_mouse_down(pos):
     for i in Buttons:
