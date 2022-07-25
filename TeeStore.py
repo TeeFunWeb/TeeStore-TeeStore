@@ -23,11 +23,16 @@ class Button:
     
 
     def mousedown(self):
-        global State
+        global State,Buttons
         if State==self.Callback:
             State=0
+            self.Actor.image='button'
         else:
             State=self.Callback
+            self.Actor.image='button_down'
+            for i in Buttons:
+                if i!=self:
+                    i.Actor.image='button'
 
 
 class LifeText: #文本的类
